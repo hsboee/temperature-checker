@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+{% load nvd3_tags %}
+<head>
+    {% include_chart_jscss %}
+    {% load_chart charttype chartdata "discretebarchart_container" %}
+</head>
+<body>
+     <b>{{date}} </b>
+    {% include_container "discretebarchart_container" 500 400 %}
+</body>

@@ -1,0 +1,56 @@
+#!/bin/sh
+
+HOME_DIR=/home/pi
+SERVICE_NAME=themostat
+ROOT_DIR=${HOME_DIR}/${SERVICE_NAME}
+PID_DIR=${ROOT_DIR}/pid
+PID_FILE=${SERVICE_NAME}.pid
+
+# Add any command line options for your daemon here
+DAEMON_OPTS=""
+DAEMON=${ROOT_DIR}/bin/run_themostat.sh
+
+echo ${DAEMON}
+
+# This next line determines what user the script runs as.
+# Root generally not recommended but necessary if you are using the Raspberry Pi GPIO from Python.
+DAEMON_USER=root
+
+# The process ID of the script when it runs is stored here:
+PIDFILE=${PID_DIR}/${SERVICE_NAME}.pid
+
+. /lib/lsb/init-functions
+
+do_start () {
+    log_daemon_msg "Starting system $SERVICE_NAME daemon"
+    start-stop-daemon --start --background --pidfile ${PID_DIR}/${PID_FILE} --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_OPTS
+    log_end_msg $?
+}
+do_stop () {
+    log_daemon_msg "Stopping system $SERVICE_NAME daemon"
+    start-stop-daemon --stop --pidfile $PID_FILE --retry 10
+    log_end_msg $?
+}
+
+case "$1" in
+
+    start|stop)
+        do_${1}
+        ;;
+
+    restart|reload|force-reload)
+        do_stop
+        do_start
+        ;;
+
+    status)
+        status_of_proc "$SERVICE_NAME" "$DAEMON" && exit 0 || exit $?
+        ;;
+
+    *)
+        echo "Usage: /etc/init.d/$SERVICE_NAME {start|stop|restart|status}"
+        exit 1
+        ;;
+
+esac
+exit 0

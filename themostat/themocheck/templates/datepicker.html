@@ -1,0 +1,84 @@
+{% load static %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Temperature Checker</title>
+    {% bootstrap_css %}
+ 
+      	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" 
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
+        <link rel="stylesheet" 
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
+      	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js">
+        </script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js">
+        </script>
+	
+      
+	{{ form.media }}
+  </head>
+
+<body>
+  
+	<div class="wrapper">
+
+		<div class="navbar navbar-inverse">
+      			<div class="container">
+ 				<ul class="nav navbar-nav">
+            			<li style="font-size:20px;color:#dddddd">Temperature Checker</li>
+				</ul>
+        		</div>
+		</div>
+		<br>
+
+	</div> <!-- wrapper -->
+	<div class="container">
+	    <div class="row">
+		<div class='col-sm-6'>
+		    <div class="form-group">
+			<form action="/" method="post" class="uniForm">
+				{% csrf_token %}
+				<div class="fieldWrapper">
+				{% for field in form.visible_fields %}	
+				<label> What date do you wonder?</label>
+				<br>
+				{{field}} 
+				{% endfor %}
+				</div>
+				<fieldset align="right">
+				<br>
+				<div class="buttonHolder">
+				<input type="submit" value="Move"class="uniForm blueFroms"/>
+				</div>
+				</fieldset>
+			</form>
+		     </div>
+		</div>
+            </div>
+	<div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+  

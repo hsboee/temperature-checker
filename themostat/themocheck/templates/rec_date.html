@@ -1,0 +1,10 @@
+{% if rec_date_list %}
+<ul>
+{% for each in rec_date_list %}
+	<li>{{each.rec_date}}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p> No entry</p>
+{% endif %}
+
